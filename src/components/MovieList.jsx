@@ -5,7 +5,7 @@ const MovieList = (props) => {
 
   return (
     <React.Fragment>
-      {props.movies.map((movie, index) => (
+      {props.movies?.map((movie, index) => (
         <div
           className="image-container d-flex justify-content-center m-3 col-3"
           onClick={() => props.handleModal(movie)}

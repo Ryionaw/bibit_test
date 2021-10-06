@@ -50,4 +50,23 @@ body {
   padding: 20px;
   text-align: center;
 }
+
+.modal-dialog {
+  color: #141414;
+}
+
+.modal-footer {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.modal-footer button {
+  background: none;
+  border: 0;
+}
+
+.modal-footer button:hover {
+  color: red;
+}
 /*# sourceMappingURL=App.css.map */

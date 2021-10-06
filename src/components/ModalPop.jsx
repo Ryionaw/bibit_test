@@ -5,17 +5,19 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 class ModalPop extends Component {
   render() {
+    console.log(this.props.body);
     return (
       <div>
         <Modal
           show={this.props.show}
           onHide={() => this.props.onHide({ msg: "Cross Icon Clicked!" })}
         >
-          <Modal.Header closeButton>
-            <Modal.Title>{this.props.title}</Modal.Title>
-          </Modal.Header>
-
-          <Modal.Body>{this.props.movie}</Modal.Body>
+          <Modal.Body className="text-center">
+            <img src={this.props.body.Poster} alt="" />
+          </Modal.Body>
+          <Modal.Footer>
+            <button>Detail Movies</button>
+          </Modal.Footer>
         </Modal>
       </div>
     );

@@ -7,13 +7,14 @@ import MovieListHeading from "./components/MovieListHeading";
 import SearchBox from "./components/SearchBox";
 import AddFavourite from "./components/AddFavourites";
 import RemoveFavourites from "./components/RemoveFavourites";
-// import ModalPop from "./components/ModalPop";
+import ModalPop from "./components/ModalPop";
 
 const App = () => {
   const [movies, setMovies] = useState([]);
   const [favourites, setFavourites] = useState([]);
   const [searchValue, setSearchValue] = useState("naruto");
   const [show, popup] = useState(false);
+  const [clickedMovie, setClickedMovie] = useState(null);
 
   const modalOpen = () => popup(true);
   const modalClose = () => popup(false);
@@ -60,44 +61,52 @@ const App = () => {
   };
 
   const loadPoster = (movie) => {
-    modalOpen();
-    return (
-      <Modal show={show} onHide={modalClose}>
-        <Modal.Body>
-          <img src={movie.Poster} alt={movie.Title}></img>
-        </Modal.Body>
-      </Modal>
-
-      // <ModalPop show={show} onHide={modalClose} body={movie}></ModalPop>
-    );
+    setClickedMovie(movie);
+    popup(true);
+    // modalOpen();
+    // return (
+    //   <>
+    //     <Modal show={show} onHide={modalClose}>
+    //       <Modal.Body>
+    //         <img src={movie.Poster} alt={movie.Title}></img>
+    //       </Modal.Body>
+    //     </Modal>
+    //   </>
+    // );
   };
 
   return (
-    <div className="container-fluid movie-app">
-      <div className="row d-flex align-items-center mt-4 mb-4">
-        <MovieListHeading heading="Movies" />
-        <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
+    <>
+      <div className="container-fluid movie-app">
+        <div className="row d-flex align-items-center mt-4 mb-4">
+          <MovieListHeading heading="Movies" />
+          <SearchBox
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+          />
+        </div>
+        <div className="row scrolled">
+          <Movielist
+            movies={movies}
+            handleFavouritesClick={addFavouriteMovie}
+            handleModal={loadPoster}
+            favouriteComponent={AddFavourite}
+          />
+        </div>
+        <div className="row d-flex align-items-center mt-4 mb-4">
+          <MovieListHeading heading="Favourites" />
+        </div>
+        <div className="row scrolled">
+          <Movielist
+            movies={favourites}
+            handleFavouritesClick={removeFavouriteMovie}
+            handleModal={loadPoster}
+            favouriteComponent={RemoveFavourites}
+          />
+        </div>
       </div>
-      <div className="row scrolled">
-        <Movielist
-          movies={movies}
-          handleFavouritesClick={addFavouriteMovie}
-          handleModal={loadPoster}
-          favouriteComponent={AddFavourite}
-        />
-      </div>
-      <div className="row d-flex align-items-center mt-4 mb-4">
-        <MovieListHeading heading="Favourites" />
-      </div>
-      <div className="row scrolled">
-        <Movielist
-          movies={favourites}
-          handleFavouritesClick={removeFavouriteMovie}
-          handleModal={loadPoster}
-          favouriteComponent={RemoveFavourites}
-        />
-      </div>
-    </div>
+      <ModalPop show={show} onHide={modalClose} body={clickedMovie}></ModalPop>
+    </>
   );
 };
 
